@@ -10,3 +10,14 @@ target_include_directories(
 add_executable(foo cpp/src/foo.cpp)
 
 target_link_libraries(foo PRIVATE bar)
+
+
+function(run_target target)
+	add_custom_target(run_${target} $<TARGET_FILE:${target}>
+		DEPENDS ${target}
+		WORKING_DIRECTORY $<TARGET_FILE_DIR:${target}>
+		)
+endfunction()
+
+
+run_target(foo)
